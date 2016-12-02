@@ -24,6 +24,12 @@ $(function(){
             page--;
             if(page < 0){ page = pagesLength - 1; }
         }
+        $btn.each(function(index) {
+            $(this).click(function(){
+                page=index;
+                scrolling();
+            })
+        });
         /*页面滑动*/
         function scrolling(){
             $btn.eq(page).addClass('active').siblings().removeClass('active');
