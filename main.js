@@ -10,10 +10,12 @@ $(function(){
         // cb  - 页面切换后的回调函数
         // t   - 页面切换时间, 默认 1000ms
         var page = 0;
+        var oldPage = 0;
         var $btn = $(btn);
         var $secs = $(sec);
         var $con = $(this);
         var pagesLength = $secs.length;
+        var timer = null;
         t = t || 1000;
         // 当前页面切换
         function up(){
@@ -32,9 +34,15 @@ $(function(){
         });
         /*页面滑动*/
         function scrolling(){
-            $btn.eq(page).addClass('active').siblings().removeClass('active');
-            $secs.removeClass('active');
-            $secs.eq(page).addClass('active');
+            clearTimeout(timer);
+            $secs.eq(oldPage).addClass('animate');
+            timer = setTimeout(function () {
+                $secs.eq(oldPage).removeClass('animate');
+                $btn.eq(page).addClass('active').siblings().removeClass('active');
+                $secs.removeClass('active');
+                $secs.eq(page).addClass('active');
+                oldPage = page;
+            }, 2000);
         }
         $con.one('mousewheel',mouseScroll);
         function mouseScroll(event){
@@ -46,7 +54,7 @@ $(function(){
             scrolling();
             setTimeout(function(){
                 $con.one('mousewheel',mouseScroll);
-            },t);
+            }, t);
         }
 
         /*响应键盘上下键*/
@@ -55,11 +63,12 @@ $(function(){
             var e = event || window.event;
             var key = e.keyCode || e.which||e.charCode;
             switch(key)	{
-                case 38: down();run();
+                case 38: down();
                     break;
-                case 40: up();run();
+                case 40: up();
                     break;
             }
+            scrolling();
             setTimeout(function(){$(document).one('keydown',keyDown)},t);
         }
     };

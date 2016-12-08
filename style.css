@@ -577,13 +577,12 @@ body {
     height: 38px;
     background: url("./images/text-stage-3-title.png") no-repeat;
 }
-.stage-3-icon{
+.stage-3-icon, .stage.active.animate{
     position: relative;
     width: 170px;
     height: 170px;
     margin: 0 auto 42px;
-    z-index: -1;
-
+    z-index: -1; 
     opacity: 0;
     -webkit-transform: scale(0.3);
     -moz-transform: scale(0.3);
@@ -636,8 +635,8 @@ body {
 }
 .stage-3-icon-chameleon-front {
     position: relative;
-    margin-top: -1px;
-    margin-left: -1px;
+    margin-top: 0;
+    margin-left: 0;
     width: 170px;
     height: 170px;
     background: url(./images/icon-chameleon.png) center center no-repeat;
@@ -665,8 +664,10 @@ body {
 }
 .stage-3-icon-chameleon-palette{
     position: absolute;
+    margin: 1px;
     width: 168px;
     height: 168px;
+    overflow: hidden;
 }
 .stage-3-icon-chameleon-bg{
     /*left: -200px;
